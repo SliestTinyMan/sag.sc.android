@@ -11,7 +11,7 @@ body { height: 100%; margin: 0; padding: 0 }
 <script type="text/javascript" src="cordova.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4P5UMlmniwiJ1UkJ8lGM3ntZVwAjks8o" type="text/javascript"></script>
 <script type="text/javascript">
-navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 30000 });
+navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 });
 function onSuccess(position) {
 var lat=position.coords.latitude;
 var lang=position.coords.longitude;
