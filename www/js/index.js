@@ -45,5 +45,12 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        
+        navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 30000 });
+        function onSuccess(position) {
+            var lat=position.coords.latitude;
+            var lang=position.coords.longitude;
+        }
+        function onError(error) { alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n'); } 
     }
 };
