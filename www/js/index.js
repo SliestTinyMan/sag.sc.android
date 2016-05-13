@@ -27,7 +27,7 @@ switch(verificado) {
         if (data == "1C01SCL"){
           window.localStorage.setItem('rsc_ver','ec01ce');
           // Mostrar alertas
-          document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";     
+          document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:105\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:116\", \"_system\");'>";     
         // Registro por aprobar, mostrar mensaje y salir
         }else{
           alert("Estamos verificando sus datos");
