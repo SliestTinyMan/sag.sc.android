@@ -74,7 +74,7 @@ function obtener_form(){
         data: 'nombre='+nombre+'&documento='+documento+'&telefono='+telefono+'&email='+email,
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_11101949.php',
       success: function(data){
-        document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";
+        document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:105\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:116\", \"_system\");'>";
       },
       error: function(data){ 
         console.log("Sin conexión a la red");
@@ -123,7 +123,7 @@ function enviar_alerta(boton){
     }
     tipo_alerta(boton);*/
      alert('Alerta enviada, nos comunicaremos en breve');
-      navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
       $.ajax({
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
