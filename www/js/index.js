@@ -1,56 +1,151 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-       /* var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+// Documento de identidad del usuario
+var documento = window.localStorage.getItem('rsc_doc'); 
+// Estado de registro del usuario
+var verificado = window.localStorage.getItem('rsc_ver'); 
+var latitud;
+var longitud;        
+var datos_enviados = 0;  
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);*/
-        
-        navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 30000 });
-        function onSuccess(position) {
-            var lat=position.coords.latitude;
-            var lang=position.coords.longitude;
+switch(verificado) {
+    // Usuario aprobado
+    case "ec01ce":
+      // Obtener geolocalización (GPS)
+      function disp(pos) { latitud = pos.coords.latitude; longitud = pos.coords.longitude; }
+      function error(msg){ console.log('Por favor activa tu GPS para informar tu posición.'); }
+      navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      // Mostrar alertas
+      document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";     
+    break;
+    // Verificar si fue aprobado
+    case "ec02ce":
+      $.ajax({ 
+        type: 'POST',
+        data: 'documento='+documento,
+        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_12100624.php',
+      success: function(data){
+        // Registro aprobado, actualizar acceso y mostrar alertas 
+        if (data == "1C01SCL"){
+          window.localStorage.setItem('rsc_ver','ec01ce');
+          // Mostrar alertas
+          document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";     
+        // Registro por aprobar, mostrar mensaje y salir
+        }else{
+          alert("Estamos verificando sus datos");
+          navigator.app.exitApp();    
         }
-        function onError(error) { alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n'); } 
+      },
+      error: function(data){ 
+        alert("Sin conexión a la red");
+        navigator.app.exitApp();
+      }
+      });
+    break;
+    // Mostrar formulario para registro de usuario
+    default:
+      document.getElementById('principal').innerHTML = "<div id='registro'><br><h1>Completa el registro</h1><br><form><span class='text-1'>Nombres y Apellidos</span><input class='input-1' type='text' id='nombre' name='nombre'><span class='text-1'>Número Documento</span><input class='input-1' type='text' id='documento' name='documento'><span class='text-1'>Número Teléfono</span><input class='input-1' type='text' id='telefono' name='telefono'><span class='text-1'>E-mail</span><input class='input-1' type='text' id='email' name='email'><input class='submit-1' type='button' value='Enviar' onclick='obtener_form();'></form></div>";
+      console.log("formulario");
+}
+
+
+function obtener_form(){
+
+	var nombre = document.getElementById("nombre").value;
+	var documento = document.getElementById("documento").value;
+	var telefono = document.getElementById("telefono").value;
+	var email = document.getElementById("email").value;
+
+  if (nombre.length < 10){
+    alert("Por favor, ingresa tu nombre completo.");
+  }else if (documento.length < 8){
+    alert("Por favor, ingresa tu documento de identidad");
+  }else if(telefono.length < 9){
+    alert("Por favor, ingresa tu número de celular.")
+  }else if(email.length < 10){
+    alert("Por favor, ingresa tu correo electrónico.")
+  }else{
+    if (datos_enviados == 0) {
+      datos_enviados = 1;
+      alert("¡Bienvenido!.");
+      window.localStorage.setItem('rsc_doc', documento);
+      window.localStorage.setItem('rsc_ver','ec01ce');
+      //window.localStorage.setItem('rsc_ver','ec01ce');
+      $.ajax({ 
+        type: 'POST',
+        data: 'nombre='+nombre+'&documento='+documento+'&telefono='+telefono+'&email='+email,
+        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_11101949.php',
+      success: function(data){
+        document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";
+      },
+      error: function(data){ 
+        console.log("Sin conexión a la red");
+        //navigator.app.exitApp();
+      }
+      });
+      //navigator.app.exitApp();
     }
-};
+  }
+}
+
+function enviar_alerta(boton){
+
+  if (datos_enviados == 0) {
+    datos_enviados = 1;
+
+    // Verificar red
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'N';
+    states[Connection.ETHERNET] = 'S';
+    states[Connection.WIFI]     = 'S';
+    states[Connection.CELL_2G]  = 'S';
+    states[Connection.CELL_3G]  = 'S';
+    states[Connection.CELL_4G]  = 'S';
+    states[Connection.CELL]     = 'S';
+    states[Connection.NONE]     = 'N';
+
+    // ¿Dispone de datos para enviar/recibir?
+    if (states[networkState] == "S"){
+      $.ajax({
+        async: false,
+        type: 'POST',
+        data: 'test=1',
+        url: 'http://alertasanmiguel.tecnicom.pe/index.php',
+      success: function(data){ 
+        boton = boton+"S";
+      },
+      error: function(data){ 
+        boton = boton+"N";
+      }
+      });
+    }else{
+      boton = boton+"N";
+    }
+    tipo_alerta(boton);
+  }
+}
+
+function tipo_alerta(alerta){
+  switch(alerta) {
+    case "b1N":
+      window.open('tel:9999999', '_system');
+    break;
+    case "b1S":
+      alert('Alerta enviada, nos comunicaremos en breve');
+      navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      $.ajax({
+        type: 'POST',
+        data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
+        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
+      success: function(data){ 
+         document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";
+      },
+      error: function(data){ 
+        console.log('error_');
+      }
+      });
+    break;
+    default:
+      console.log('default');
+  }
+}

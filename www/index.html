@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Geo Location</title>
-<style type="text/css">
-html { height: 100% }
-body { height: 100%; margin: 0; padding: 0 }
-#map-canvas { height: 100% }
-</style>
-<script type="text/javascript" src="cordova.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4P5UMlmniwiJ1UkJ8lGM3ntZVwAjks8o" type="text/javascript"></script>
-<script type="text/javascript">
-navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 });
-function onSuccess(position) {
-var lat=position.coords.latitude;
-var lang=position.coords.longitude;
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />         
+        
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
 
-//Google Maps
-var myLatlng = new google.maps.LatLng(lat,lang);
-var mapOptions = {zoom: 16,center: myLatlng}
-var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-var marker = new google.maps.Marker({position: myLatlng,map: map});
-}
-function onError(error) {
-alert('code: ' + error.code + '\n' +
-'message: ' + error.message + '\n');
-}
-google.maps.event.addDomListener(window, 'load', onSuccess);
-
-</script>
-</head>
-<body>
-<div id="map-canvas"></div>
-</body>
+    <title>ALERTA XXXXXX</title>
+  </head>
+  <body>
+    <div id="principal">
+    </div>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+  </body>
 </html>
