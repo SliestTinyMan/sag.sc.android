@@ -4,17 +4,17 @@
 
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "sc.alerta"
-        version   = "0.0.2">
+        id        = "pe.gob.munisanmiguel.sag.sc"
+        version   = "1.0.0">
 
-    <name>SC ALERTA</name>
+    <name>Alerta San Miguel</name>
 
     <description>
-        SC Alerta
+        Alerta San Miguel
     </description>
 
-    <author href="https://github.com/jmhidalgoa" email="jmhidalgoa@live.com">
-        SC Alerta
+    <author href="https://*" email="sliesttinyman@outlook.com">
+        SAG SC Team
     </author>
 
     <!-- Restringir vista vertical -->
@@ -33,14 +33,6 @@
 
     <!-- Personaliza tu aplicación y plataforma -->
     <preference name="fullscreen"                 value="false" />           <!-- Para todos: Oculta la barra de estado en la parte superior de la pantalla. -->
-    <preference name="webviewbounce"              value="true" />           <!-- ios: Controla si la pantalla rebota al desplazarla más allá de la parte superior -->
-    <preference name="prerendered-icon"           value="true" />           <!-- ios: Si el icono está pre-renderizado, iOS no aplicará brillo al icono de la aplicación en la pantalla principal del usuario -->
-    <preference name="stay-in-webview"            value="false" />          <!-- ios: Enlaces externos se abrirán en el navegador por defecto, "true" utilizaría el webview de la aplicación -->
-    <preference name="ios-statusbarstyle"         value="black-opaque" />   <!-- ios: Negro-transparente aparecerá negro porque el webview PhoneGap no pasa por debajo de la barra de estado -->
-    <preference name="detect-data-types"          value="true" />           <!-- ios: Controla si los tipos de datos (por ejemplo, Tel. y fechas) se convierten automáticamente en enlaces por el sistema -->
-    <preference name="exit-on-suspend"            value="false" />          <!-- ios: Si se establece en true, la aplicación terminará cuando se pulsa el botón inicio -->
-    <preference name="show-splash-screen-spinner" value="true" />           <!-- ios: Si se establece en false, la ruleta no aparecerá en la pantalla de bienvenida mientras la aplicación se carga -->
-    <preference name="auto-hide-splash-screen"    value="true" />           <!-- ios: si se establece en false, la pantalla de presentación debe estar oculta usando una API de JavaScript -->
     <preference name="android-minSdkVersion"      value="19" />              <!-- android: Versión mínima del SDK soportado en el dispositivo de destino. Versión máxima está en blanco de forma predeterminada. -->
     <preference name="android-installLocation"    value="auto" />           <!-- Android: Ubicación de instalación de la aplicación. 'auto' elegirá. 'internalOnly" es la memoria interna del dispositivo. 'preferExternal' es la tarjeta SD. -->
 
@@ -73,25 +65,12 @@
     <icon src="res/icon/android/icon-48-mdpi.png"   gap:platform="android"    gap:qualifier="mdpi" />
     <icon src="res/icon/android/icon-72-hdpi.png"   gap:platform="android"    gap:qualifier="hdpi" />
     <icon src="res/icon/android/icon-96-xhdpi.png"  gap:platform="android"    gap:qualifier="xhdpi" />
-    <icon src="res/icon/ios/icon-57.png"            gap:platform="ios"        width="57" height="57" />
-    <icon src="res/icon/ios/icon-72.png"            gap:platform="ios"        width="72" height="72" />
-    <icon src="res/icon/ios/icon-57-2x.png"         gap:platform="ios"        width="114" height="114" />
-    <icon src="res/icon/ios/icon-72-2x.png"         gap:platform="ios"        width="144" height="144" />
 
     <!-- Definir pantalla de bienvenida para cada plataforma. -->
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png"       gap:platform="android" gap:qualifier="port-ldpi" />
     <gap:splash src="res/screen/android/screen-mdpi-portrait.png"       gap:platform="android" gap:qualifier="port-mdpi" />
     <gap:splash src="res/screen/android/screen-hdpi-portrait.png"       gap:platform="android" gap:qualifier="port-hdpi" />
     <gap:splash src="res/screen/android/screen-xhdpi-portrait.png"      gap:platform="android" gap:qualifier="port-xhdpi" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait.png"         gap:platform="ios"     width="320" height="480" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.png"      gap:platform="ios"     width="640" height="960" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios"     width="640" height="1136" />
-    <gap:splash src="res/screen/ios/screen-ipad-portrait.png"           gap:platform="ios"     width="768" height="1024" />
-    <gap:splash src="res/screen/ios/screen-ipad-landscape.png"          gap:platform="ios"     width="1024" height="768" />
-
-    <gap:config-file platform="ios" parent="CFBundleShortVersionString">
-    <string>100</string>
-    </gap:config-file>
 
     <allow-navigation href="*" />
     <allow-intent href="*" />
