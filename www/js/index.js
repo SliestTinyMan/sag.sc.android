@@ -129,6 +129,7 @@ function enviar_alerta(boton){
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
       success: function(data){ 
+         navigator.app.exitApp();
          /*document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:105\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:116\", \"_system\");'>";*/
       },
       error: function(data){ 
