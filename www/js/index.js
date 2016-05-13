@@ -91,7 +91,7 @@ function enviar_alerta(boton){
   if (datos_enviados == 0) {
     datos_enviados = 1;
 
-    // Verificar red
+  /*  // Verificar red
     var networkState = navigator.connection.type;
 
     var states = {};
@@ -121,7 +121,20 @@ function enviar_alerta(boton){
     }else{
       boton = boton+"N";
     }
-    tipo_alerta(boton);
+    tipo_alerta(boton);*/
+     alert('Alerta enviada, nos comunicaremos en breve');
+      navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      $.ajax({
+        type: 'POST',
+        data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
+        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
+      success: function(data){ 
+         /*document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";*/
+      },
+      error: function(data){ 
+        alert('error_');
+      }
+      });
   }
 }
 
