@@ -145,7 +145,7 @@ function tipo_alerta(alerta){
     break;
     case "b1S":
       alert('Alerta enviada, nos comunicaremos en breve');
-      navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
       $.ajax({
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
