@@ -14,7 +14,7 @@ switch(verificado) {
       function error(msg){ console.log('Por favor activa tu GPS para informar tu posición.'); }
       navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
       // Mostrar alertas
-      document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";     
+      document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";     
     break;
     // Verificar si fue aprobado
     case "ec02ce":
