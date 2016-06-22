@@ -1,10 +1,10 @@
 ﻿// Documento de identidad del usuario
-var documento = window.localStorage.getItem('rsc_doc'); 
+var documento = window.localStorage.getItem('rsc_doc');
 // Estado de registro del usuario
-var verificado = window.localStorage.getItem('rsc_ver'); 
+var verificado = window.localStorage.getItem('rsc_ver');
 var latitud;
-var longitud;        
-var datos_enviados = 0;  
+var longitud;
+var datos_enviados = 0;
 
 switch(verificado) {
     // Usuario aprobado
@@ -14,27 +14,27 @@ switch(verificado) {
       function error(msg){ console.log('Por favor activa tu GPS para informar tu posición.'); }
       navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
       // Mostrar alertas
-      document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";     
+      document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";
     break;
     // Verificar si fue aprobado
     case "ec02ce":
-      $.ajax({ 
+      $.ajax({
         type: 'POST',
         data: 'documento='+documento,
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_12100624.php',
       success: function(data){
-        // Registro aprobado, actualizar acceso y mostrar alertas 
+        // Registro aprobado, actualizar acceso y mostrar alertas
         if (data == "1C01SCL"){
           window.localStorage.setItem('rsc_ver','ec01ce');
           // Mostrar alertas
-          document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";     
+          document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";
         // Registro por aprobar, mostrar mensaje y salir
         }else{
           alert("Estamos verificando sus datos");
-          navigator.app.exitApp();    
+          navigator.app.exitApp();
         }
       },
-      error: function(data){ 
+      error: function(data){
         alert("Sin conexión a la red");
         navigator.app.exitApp();
       }
@@ -69,14 +69,14 @@ function obtener_form(){
       window.localStorage.setItem('rsc_doc', documento);
       window.localStorage.setItem('rsc_ver','ec01ce');
       //window.localStorage.setItem('rsc_ver','ec01ce');
-      $.ajax({ 
+      $.ajax({
         type: 'POST',
         data: 'nombre='+nombre+'&documento='+documento+'&telefono='+telefono+'&email='+email,
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_11101949.php',
       success: function(data){
-        document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:105\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:116\", \"_system\");'>";
+        document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";
       },
-      error: function(data){ 
+      error: function(data){
         console.log("Sin conexión a la red");
         //navigator.app.exitApp();
       }
@@ -111,10 +111,10 @@ function enviar_alerta(boton){
         type: 'POST',
         data: 'test=1',
         url: 'http://alertasanmiguel.tecnicom.pe/index.php',
-      success: function(data){ 
+      success: function(data){
         boton = boton+"S";
       },
-      error: function(data){ 
+      error: function(data){
         boton = boton+"N";
       }
       });
@@ -128,11 +128,11 @@ function enviar_alerta(boton){
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
-      success: function(data){ 
+      success: function(data){
          navigator.app.exitApp();
          /*document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:105\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:116\", \"_system\");'>";*/
       },
-      error: function(data){ 
+      error: function(data){
         alert('error_');
       }
       });
@@ -151,10 +151,10 @@ function tipo_alerta(alerta){
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
-      success: function(data){ 
+      success: function(data){
          document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";
       },
-      error: function(data){ 
+      error: function(data){
         console.log('error_');
       }
       });
