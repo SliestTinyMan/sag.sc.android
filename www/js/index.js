@@ -5,14 +5,15 @@ var verificado = window.localStorage.getItem('rsc_ver');
 var latitud;
 var longitud;
 var datos_enviados = 0;
+var gps = 0;
 
 switch(verificado) {
     // Usuario aprobado
     case "ec01ce":
       // Obtener geolocalización (GPS)
-      function disp(pos) { latitud = pos.coords.latitude; longitud = pos.coords.longitude; }
-      function error(msg){ console.log('Por favor activa tu GPS para informar tu posición.'); }
-      navigator.geolocation.getCurrentPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      function disp(pos) { latitud = pos.coords.latitude; longitud = pos.coords.longitude; gps = 1; }
+      function error(msg){ alert('Por favor activa tu GPS para informar tu posición y enviar la alerta.'); }
+      navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
       // Mostrar alertas
       document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";
     break;
@@ -63,7 +64,7 @@ function obtener_form(){
   }else if(email.length < 10){
     alert("Por favor, ingresa tu correo electrónico.")
   }else{
-    if (datos_enviados == 0) {
+    if (datos_enviados == 0 && gps == 1) {
       datos_enviados = 1;
       alert("¡Bienvenido!.");
       window.localStorage.setItem('rsc_doc', documento);
@@ -75,6 +76,7 @@ function obtener_form(){
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_11101949.php',
       success: function(data){
         document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";
+        datos_enviados = 0;
       },
       error: function(data){
         console.log("Sin conexión a la red");
@@ -122,14 +124,15 @@ function enviar_alerta(boton){
       boton = boton+"N";
     }
     tipo_alerta(boton);*/
-     alert('Alerta enviada, nos comunicaremos en breve');
+     document.getElementById('principal').innerHTML = "<h3>Enviando alerta, un momento por favor.</h3>";
       navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
       $.ajax({
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
         url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
       success: function(data){
-         navigator.app.exitApp();
+        document.getElementById('principal').innerHTML = "<h3>Alerta enviada, nos comunicaremos en breve.</h3>";
+        setTimeout(function(){ navigator.app.exitApp(); }, 2000);
          /*document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:105\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:116\", \"_system\");'>";*/
       },
       error: function(data){
