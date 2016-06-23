@@ -11,7 +11,7 @@ var gps = 0;
       function disp(pos) { latitud = pos.coords.latitude; longitud = pos.coords.longitude; gps = 1; }
       function error(msg){ alert('Por favor activa tu GPS para informar tu posición y enviar la alerta.'); }
       navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
-      
+
 switch(verificado) {
     // Usuario aprobado
     case "ec01ce":
@@ -66,7 +66,7 @@ function obtener_form(){
   }else if(email.length < 10){
     alert("Por favor, ingresa tu correo electrónico.")
   }else{
-    if (datos_enviados == 0 && gps == 1) {
+    if (datos_enviados == 0) {
       datos_enviados = 1;
       alert("¡Bienvenido!.");
       window.localStorage.setItem('rsc_doc', documento);
@@ -92,7 +92,7 @@ function obtener_form(){
 
 function enviar_alerta(boton){
 
-  if (datos_enviados == 0) {
+  if (datos_enviados == 0 && gps == 1) {
     datos_enviados = 1;
 
   /*  // Verificar red
@@ -141,6 +141,8 @@ function enviar_alerta(boton){
         alert('error_');
       }
       });
+  }else{
+    alert('Por favor activa tu GPS para informar tu posición y enviar la alerta.');
   }
 }
 
