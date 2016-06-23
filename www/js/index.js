@@ -92,6 +92,8 @@ function obtener_form(){
 
 function enviar_alerta(boton){
 
+  navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+
   if (datos_enviados == 0 && gps == 1) {
     datos_enviados = 1;
 
@@ -127,7 +129,7 @@ function enviar_alerta(boton){
     }
     tipo_alerta(boton);*/
      document.getElementById('principal').innerHTML = "<h3>Enviando alerta, un momento por favor.</h3>";
-      navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      
       $.ajax({
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
