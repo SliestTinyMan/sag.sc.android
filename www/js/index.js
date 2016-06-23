@@ -7,13 +7,15 @@ var longitud;
 var datos_enviados = 0;
 var gps = 0;
 
-switch(verificado) {
-    // Usuario aprobado
-    case "ec01ce":
-      // Obtener geolocalización (GPS)
+// Obtener geolocalización (GPS)
       function disp(pos) { latitud = pos.coords.latitude; longitud = pos.coords.longitude; gps = 1; }
       function error(msg){ alert('Por favor activa tu GPS para informar tu posición y enviar la alerta.'); }
       navigator.geolocation.watchPosition(disp,error,{maximumAge: 0, timeout: 5000, enableHighAccuracy: true});
+      
+switch(verificado) {
+    // Usuario aprobado
+    case "ec01ce":
+      
       // Mostrar alertas
       document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";
     break;
