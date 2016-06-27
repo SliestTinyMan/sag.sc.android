@@ -24,7 +24,7 @@ switch(verificado) {
       $.ajax({
         type: 'POST',
         data: 'documento='+documento,
-        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_12100624.php',
+        url: 'http://alertaciudadana.tecnicom.pe/scripts/reg_12100624.php',
       success: function(data){
         // Registro aprobado, actualizar acceso y mostrar alertas
         if (data == "1C01SCL"){
@@ -75,7 +75,7 @@ function obtener_form(){
       $.ajax({
         type: 'POST',
         data: 'nombre='+nombre+'&documento='+documento+'&telefono='+telefono+'&email='+email,
-        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_11101949.php',
+        url: 'http://alertaciudadana.tecnicom.pe/scripts/reg_11101949.php',
       success: function(data){
         document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'>";
         datos_enviados = 0;
@@ -116,7 +116,7 @@ function enviar_alerta(boton){
         async: false,
         type: 'POST',
         data: 'test=1',
-        url: 'http://alertasanmiguel.tecnicom.pe/index.php',
+        url: 'http://alertaciudadana.tecnicom.pe/index.php',
       success: function(data){
         boton = boton+"S";
       },
@@ -133,7 +133,7 @@ function enviar_alerta(boton){
       $.ajax({
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
-        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
+        url: 'http://alertaciudadana.tecnicom.pe/scripts/reg_13102039.php',
       success: function(data){
         document.getElementById('principal').innerHTML = "<h3>Alerta enviada, nos comunicaremos en breve.</h3>";
         setTimeout(function(){ navigator.app.exitApp(); }, 2000);
@@ -159,7 +159,7 @@ function tipo_alerta(alerta){
       $.ajax({
         type: 'POST',
         data: 'documento='+documento+'&alerta=1'+'&latitud='+latitud+'&longitud='+longitud,
-        url: 'http://alertasanmiguel.tecnicom.pe/scripts/reg_13102039.php',
+        url: 'http://alertaciudadana.tecnicom.pe/scripts/reg_13102039.php',
       success: function(data){
          document.getElementById('principal').innerHTML = "<img class='background' src='img/background.jpg'><div style='padding-top:55%;'></div><img src='img/img_1.png' class='w-100' onclick='enviar_alerta(\"b1\");'><img src='img/img_2.png' class='w-100' onclick='window.open(\"tel:999999999\", \"_system\");'><img src='img/img_3.png' class='w-100' onclick='window.open(\"tel:888888888\", \"_system\");'>";
       },
