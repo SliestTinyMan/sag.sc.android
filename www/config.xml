@@ -7,10 +7,10 @@
         id        = "pe.gob.munisanmiguel.sag.sc"
         version   = "1.0.0">
 
-    <name>Alerta San Miguel</name>
+    <name>Alerta Ciudadana</name>
 
     <description>
-        Alerta San Miguel
+        Alerta Ciudadana
     </description>
 
     <author href="https://*" email="sliesttinyman@outlook.com">
